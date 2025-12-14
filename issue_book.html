@@ -1,0 +1,101 @@
+{% extends 'library/base.html' %}
+{% load static %}
+{% block title %}Issue Book{% endblock %}
+
+{% block content %}
+
+<!-- ================= PAGE HEADING ================= -->
+<div class="text-center mb-4">
+    <h2 class="fw-bold">Issue Book</h2>
+    <p class="text-muted">
+        Issue books easily using the Library Management System.
+        Please fill in the required details carefully.
+    </p>
+</div>
+
+<!-- ================= MAIN CARD ================= -->
+<div class="row justify-content-center">
+    <div class="col-md-10">
+
+        <div class="card shadow-lg border-0 mb-4">
+            <div class="row g-0">
+
+                <!-- ===== IMAGE SECTION ===== -->
+                <div class="col-md-5">
+                    <img src="{% static 'library/images/a4.jpg' %}"
+                         class="img-fluid h-100 rounded-start"
+                         alt="Issue Book Image"
+                         style="object-fit: cover;">
+                </div>
+
+                <!-- ===== FORM SECTION ===== -->
+                <div class="col-md-7">
+                    <div class="card-body p-4">
+
+                        <h4 class="card-title mb-3">Book Issue Form</h4>
+
+                        <p class="card-text text-muted">
+                            Select the book and submit the form to issue it.
+                            Issued books will appear in <strong>My Books</strong> section.
+                        </p>
+
+                        <form method="POST">
+                            {% csrf_token %}
+
+                            <div class="mb-3">
+                                {{ form.as_p }}
+                            </div>
+
+                            <div class="d-flex gap-2">
+                                <button type="submit" class="btn btn-primary px-4">
+                                    Issue Book
+                                </button>
+                                <a href="{% url 'book_list' %}" class="btn btn-secondary px-4">
+                                    Back to Books
+                                </a>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- ================= INFORMATION SECTION ================= -->
+<div class="row mt-5">
+    <div class="col-md-6">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <h5 class="card-title">How Book Issue Works</h5>
+                <p class="card-text">
+                    The Library Management System allows students to issue books digitally.
+                    Once a book is issued, the issue date is stored automatically.
+                </p>
+                <p class="card-text">
+                    Students must return the book within the given time period.
+                    Late returns may result in fine calculation.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <h5 class="card-title">Important Instructions</h5>
+                <ul class="mb-0">
+                    <li>Check book availability before issuing</li>
+                    <li>Return books on time to avoid fines</li>
+                    <li>Issued books can be viewed in <strong>My Books</strong></li>
+                    <li>Contact admin in case of any issue</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

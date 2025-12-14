@@ -1,0 +1,91 @@
+{% extends 'library/base.html' %}
+{% load static %}
+{% block title %}Books{% endblock %}
+
+{% block content %}
+
+<!-- ===== HERO SECTION ===== -->
+<div class="card mb-4 shadow">
+    <img src="{% static 'library/images/a3.jpg' %}" 
+         class="card-img-top"
+         style="height:300px; object-fit:cover;">
+    <div class="card-body text-center">
+        <h2 class="card-title">Welcome to Library Management System</h2>
+        <p class="card-text">
+            Manage books, issue & return records easily using Django.
+        </p>
+    </div>
+</div>
+
+<!-- ===== HEADER ===== -->
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Library Books</h2>
+    {% if user.is_authenticated %}
+    <a href="{% url 'add_book' %}" class="btn btn-success">➕ Add Book</a>
+    {% endif %}
+</div>
+
+<!-- ===== BOOK TABLE ===== -->
+<div class="table-responsive">
+<table class="table table-striped table-bordered shadow-sm">
+    <thead class="table-primary text-center">
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>ISBN</th>
+            <th>Quantity</th>
+            {% if user.is_authenticated %}
+            <th>Actions</th>
+            {% endif %}
+        </tr>
+    </thead>
+
+    <tbody>
+    {% for book in books %}
+        <tr>
+            <td>{{ book.title }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.isbn }}</td>
+            <td class="text-center">{{ book.quantity }}</td>
+
+            {% if user.is_authenticated %}
+            <td class="text-center">
+                <a href="{% url 'update_book' book.id %}" 
+                   class="btn btn-warning btn-sm">✏ Edit</a>
+                <a href="{% url 'delete_book' book.id %}" 
+                   class="btn btn-danger btn-sm"
+                   onclick="return confirm('Are you sure?');">
+                   🗑 Delete
+                </a>
+            </td>
+            {% endif %}
+        </tr>
+    {% empty %}
+        <tr>
+            <td colspan="5" class="text-center text-muted">
+                No books available
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+
+<!-- ===== INFO SECTION ===== -->
+<div class="row mt-5">
+    <div class="col-md-6">
+        <h2>About This Library</h2>
+        <p style="font-size:18px;">
+            This Library Management System automates book handling,
+            issue and return operations for students and administrators.
+        </p>
+    </div>
+
+    <div class="col-md-6 text-center">
+        <img src="{% static 'library/images/a2.jpg' %}"
+             class="img-fluid rounded shadow">
+    </div>
+</div>
+
+{% endblock %}
+    

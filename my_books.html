@@ -1,0 +1,138 @@
+{% extends 'library/base.html' %}
+{% load static %}
+{% block title %}My Books{% endblock %}
+
+{% block content %}
+
+<!-- ===== PAGE HEADER CARD ===== -->
+<div class="card shadow mb-4">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src="{% static 'library/images/a5.jpg' %}" class="img-fluid h-100 rounded-start"
+                style="object-fit: cover;" alt="My Books">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h2 class="card-title">My Issued Books</h2>
+                <p class="card-text">
+                    This section shows all the books issued by you.
+                    You can view issue date, return date and fine details.
+                    If a book is not returned, you can return it using the
+                    return button.
+                </p>
+                <p class="card-text">
+                    <small class="text-muted">
+                        Library Management System | Student Panel
+                    </small>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== TABLE CARD ===== -->
+<div class="card shadow mb-4">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Issued Books Record</h5>
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered align-middle">
+                <thead class="table-primary text-center">
+                    <tr>
+                        <th>Book Name</th>
+                        <th>Issue Date</th>
+                        <th>Return Date</th>
+                        <th>Fine</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for b in books %}
+                    <tr>
+                        <td>
+                            <strong>{{ b.book.title }}</strong>
+                        </td>
+                        <td class="text-center">
+                            {{ b.issue_date }}
+                        </td>
+                        <td class="text-center">
+                            {% if b.return_date %}
+                            {{ b.return_date }}
+                            {% else %}
+                            <span class="badge bg-warning text-dark">Not Returned</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-center">
+                            {% if b.fine > 0 %}
+                            <span class="badge bg-danger">₹{{ b.fine }}</span>
+                            {% else %}
+                            <span class="badge bg-success">₹0</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-center">
+                            {% if not b.return_date %}
+                            <a href="{% url 'return_book' b.id %}" class="btn btn-success btn-sm">
+                                Return Book
+                            </a>
+                            {% else %}
+                            <span class="text-success fw-bold">Returned</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center text-muted">
+                            No books issued yet.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- ===== INFORMATION SECTION ===== -->
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card shadow h-100">
+            <div class="card-body">
+                <h3 class="card-title">Important Instructions</h3>
+                <ul>
+                    <li>Books should be returned on time.</li>
+                    <li>Late return may result in fine.</li>
+                    <li>Fine is calculated automatically.</li>
+                    <li>Contact library admin for any issue.</li>
+                </ul>
+                <ul>
+                    <li>
+                        <h4>Access to Knowledge and Information:</h4>
+                        The primary purpose of a library is to provide free and open access to a vast collection of
+                        information resources, including books, magazines, newspapers, and digital materials, to
+                        everyone.
+                        </li>
+                        <li><h4>Lifelong Learning and Self-Education:</h4> They serve as centers for continuous learning, allowing individuals to explore personal interests, learn new languages, and acquire new skills at their own pace.
+</li>
+<li><h4>Economical Resource:</h4> Libraries are a boon for people from all economic backgrounds, as they offer free access to materials and services that might otherwise be expensive, such as books, computers, and internet access.</li>
+                        </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card shadow h-100">
+            <div class="card-body text-center">
+                <img src="{% static 'library/images/a7.jpg' %}" class="img-fluid rounded mb-3" alt="Library">
+                <p>
+                    This Library Management System is developed using
+                    Django and Bootstrap to provide a smooth and
+                    professional user experience for students.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

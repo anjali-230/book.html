@@ -1,0 +1,117 @@
+{% extends 'library/base.html' %}
+{% load static %}
+{% block title %}Signup{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center mt-4">
+    <div class="col-md-10 col-lg-8">
+
+        <!-- ===== MAIN CARD ===== -->
+        <div class="card shadow-lg border-0">
+            <div class="row g-0">
+
+                <!-- ===== LEFT IMAGE SECTION ===== -->
+                <div class="col-md-5 d-none d-md-block">
+                    <img src="{% static 'library/images/a6.jpg' %}"
+                         class="img-fluid h-100 rounded-start"
+                         style="object-fit: cover;"
+                         alt="Library Image">
+                </div>
+
+                <!-- ===== RIGHT FORM SECTION ===== -->
+                <div class="col-md-7">
+                    <div class="card-body p-4">
+
+                        <h3 class="text-center mb-3 text-primary">
+                            Student Registration
+                        </h3>
+
+                        <p class="text-center text-muted mb-4">
+                            Create your library account to issue and return books online.
+                        </p>
+
+                        <!-- ===== SIGNUP FORM ===== -->
+                        <form method="POST">
+                            {% csrf_token %}
+
+                            <div class="mb-3">
+                                {{ form.username.label_tag }}
+                                {{ form.username }}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form.email.label_tag }}
+                                {{ form.email }}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form.password.label_tag }}
+                                {{ form.password }}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form.confirm_password.label_tag }}
+                                {{ form.confirm_password }}
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100 mt-3">
+                                Register
+                            </button>
+                        </form>
+
+                        <hr>
+
+                        <p class="text-center mb-0">
+                            Already have an account?
+                            <a href="{% url 'login' %}" class="text-decoration-none">
+                                Login here
+                            </a>
+                        </p>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ===== EXTRA INFO CARDS ===== -->
+        <div class="row mt-4 text-center">
+            <div class="col-md-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h6 class="text-primary">Easy Access</h6>
+                        <p class="small">
+                            Issue and return books online anytime.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h6 class="text-primary">Secure System</h6>
+                        <p class="small">
+                            Secure authentication using Django.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h6 class="text-primary">Student Friendly</h6>
+                        <p class="small">
+                            Simple and user-friendly interface.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

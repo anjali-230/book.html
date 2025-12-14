@@ -1,0 +1,62 @@
+{% extends 'library/base.html' %}
+{% load static %}
+{% block title %}Update Book{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center mt-4">
+    <div class="col-md-10 col-lg-8">
+
+        <!-- ===== MAIN CARD ===== -->
+        <div class="card shadow-lg border-0">
+            <div class="row g-0">
+
+                <!-- ===== LEFT IMAGE SECTION ===== -->
+                <div class="col-md-5 d-none d-md-block">
+                    <img src="{% static 'library/images/a6.jpg' %}"
+                         class="img-fluid h-100 rounded-start"
+                         style="object-fit: cover;"
+                         alt="Update Book">
+                </div>
+
+                <!-- ===== RIGHT FORM SECTION ===== -->
+                <div class="col-md-7">
+                    <div class="card-body p-4">
+
+                        <h3 class="text-center mb-3 text-primary">
+                            Update Book Details
+                        </h3>
+
+                        <p class="text-center text-muted mb-4">
+                            Modify book information in the library system.
+                        </p>
+
+                        <!-- ===== UPDATE FORM ===== -->
+                        <form method="POST">
+                            {% csrf_token %}
+
+                            {{ form.as_p }}
+
+                            <button type="submit" class="btn btn-success w-100 mt-3">
+                                Update Book
+                            </button>
+                        </form>
+
+                        <hr>
+
+                        <div class="text-center">
+                            <a href="{% url 'book_list' %}" class="btn btn-outline-secondary">
+                                ← Back to Book List
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
